@@ -7,7 +7,8 @@ export default function SelectionRole() {
   const changeRole = (role) =>{
     window.localStorage.setItem('role',role)
     if(role === 'Creation') navigate('/tickets')
-    else navigate('/atencion')
+    if(role === 'Client') navigate('/tickets')
+
   }
 
   return (

@@ -7,7 +7,12 @@ export default {
   theme: {
     extend: {
       backgroundColor:{
-        'primary': '#182434'
+        'primary': '#182434',
+        'accent': "#cba557"
+      },
+      colors: {
+        'accent': "#cba557"
+
       }
     },
   },
