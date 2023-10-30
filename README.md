@@ -16,4 +16,4 @@ Para construir el proyecto, ejecutar en la terminal:
 ````
 npm run build
 ````
-== esto genera una carpeta dist la cual se debe subir al servidor web ==
+==Esto genera una carpeta dist la cual se debe subir al servidor web==
