@@ -1,22 +1,21 @@
 import {  useState } from "react"
 import { useChekRoleWasSelected } from "../hooks/checkRoleWasSelected"
+import { TicketService } from "../services/TicketService"
 
 export default function Tickets() {
   const [clientOrder, setClientOrder] = useState(null)
+  const {createTicket,clearQueue } = TicketService()
+
   useChekRoleWasSelected()
 
-  const createTicket = async () =>{
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/tickets/create`)
-    const data = await res.json() || null
+  const create = async() =>{
+    const data = await createTicket()
     setClientOrder(data)
-
   }
 
   const clear = async () =>{
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/tickets/clear`)
-    const data = await res.json() || null
+    const data = await clearQueue()
     setClientOrder(data)
-
   }
 
   return(
@@ -32,7 +31,7 @@ export default function Tickets() {
           <h3 className="text-4xl md:text-5xl ">Cliente -</h3>
           <p className="font-bold text-4xl md:text-6xl ">{clientOrder?.id}</p>
         </div>
-        <button className="bg-primary text-white p-3   rounded-lg w-60 text-2xl hover:scale-105 duration-200 " onClick={createTicket}>Generar Ticket</button>
+        <button className="bg-primary text-white p-3   rounded-lg w-60 text-2xl hover:scale-105 duration-200 " onClick={create}>Generar Ticket</button>
       </div>
       </div>
     </section>

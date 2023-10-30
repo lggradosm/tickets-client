@@ -4,19 +4,23 @@ import { useChekRoleWasSelected } from "../hooks/checkRoleWasSelected";
 import { useEffect, useState } from "react";
 import socketIoClient from 'socket.io-client'
 import Navbar from "./Navbar";
+import { TicketService } from "../services/TicketService";
 
 export default function Container (){ 
   const role = window.localStorage.getItem('role')
   const [queue, setQueue] = useState([])
+  const {getTickets} = TicketService()
+  const API_URL = import.meta.env.VITE_API_URL
   useChekRoleWasSelected()
-  const getClients = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/tickets`)
-    const data = await res.json() || []
+
+  const getAll = async () => {
+    const data = await getTickets()
     setQueue(data)
   }
+
   useEffect(() => {
-    const socket = socketIoClient(`${import.meta.env.VITE_API_URL}`)
-    getClients()
+    const socket = socketIoClient(API_URL)
+    getAll()
     socket.on('queue',(data) => {
       setQueue(data)
     })
@@ -24,6 +28,7 @@ export default function Container (){
       socket.off("queue") 
     }
   },[])
+  
   return (
     <div className="bg-neutral-100 w-full h-full box-border flex flex-col">
       <Navbar />

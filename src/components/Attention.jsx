@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
+import { TicketService } from "../services/TicketService"
 
 export default function Attention(){
   const [client, setClient] = useState(null)
-  const nextClient = async ()=> {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/tickets/next`)
-    const data = await  res.json()??null
+  const {nextTicket } = TicketService()
+
+  const next = async ()=> {
+    const data = await nextTicket()
     setClient(data)
   }
 
-  const getClients = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/tickets`)
-    const data = await res.json() || []
-    console.log(data)
-  }
-
-  useEffect(()=>{
-getClients()
-  },[])
     return (
     <section className="h-full select-none  flex flex-col p-4  border-r-2  border-black/10">
       <h2 className="text-3xl md:text-4xl font-bold mb-6">Atención de clientes</h2>
@@ -31,7 +24,7 @@ getClients()
           }
         </div>
 
-        <button  className={`bg-primary text-white p-3 rounded-lg w-60 text-2xl hover:scale-105 duration-200`} onClick={nextClient}>Siguiente</button>
+        <button  className={`bg-primary text-white p-3 rounded-lg w-60 text-2xl hover:scale-105 duration-200`} onClick={next}>Siguiente</button>
       </div>
       </div>
     </section>
