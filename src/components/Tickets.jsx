@@ -22,7 +22,7 @@ export default function Tickets() {
   }
 
   const toggleModal = () => {
-    setVisible(true)
+    setVisible(prev => !prev)
   }
 
   return(
@@ -41,7 +41,7 @@ export default function Tickets() {
         <Button name={'Generar Ticket'}  onclick={create}/>
       </div>
       </div>
-      {visible && <Modal />}
+      {visible && <Modal onclick={toggleModal}/>}
     </section>
   )
 }

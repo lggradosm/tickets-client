@@ -24,7 +24,18 @@ export const TicketService = () => {
     const data = await res.json() || null
     return data
   }
+  
+  const setTicket = async (ticketId)=>{
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(ticketId)
+    }
+    const res = await fetch (`${API_URL}`,options)
+    const data = await res.json() || null
+    return data
+  }
 
-  return {getTickets, createTicket, nextTicket, clearQueue }
+  return {getTickets, createTicket, nextTicket, clearQueue , setTicket}
 
 }
