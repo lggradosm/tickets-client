@@ -1,7 +1,7 @@
 import {  useState } from "react"
 import { useChekRoleWasSelected } from "../hooks/checkRoleWasSelected"
 import { TicketService } from "../services/TicketService"
-import Modal from "./modal"
+import Modal from "./Modal"
 import Button from "./Button"
 
 export default function Tickets() {
