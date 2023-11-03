@@ -1,9 +1,8 @@
 import {  useState } from "react"
 import { useChekRoleWasSelected } from "../hooks/checkRoleWasSelected"
 import { TicketService } from "../services/TicketService"
-import Modal from "./Modal"
 import Button from "./Button"
-
+import Modal from "./Modal"
 export default function Tickets() {
   const [clientOrder, setClientOrder] = useState(null)
   const {createTicket,clearQueue } = TicketService()
