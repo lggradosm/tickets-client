@@ -27,7 +27,6 @@ export default function Modal ({onclick}) {
          <Button name={'Reiniciar'}  onclick={save}/>
         </div>
       </div>
-
     </div>
   </div>
 }
