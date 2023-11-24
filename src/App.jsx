@@ -1,17 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SelectionRole from "./components/SelectionRole";
-import Container from "./components/Container";
+
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <main className="w-full h-screen">
       <BrowserRouter>
         <Routes>
-          <Route path="seleccion" element={<SelectionRole />} />
           <Route path="login" element={<Login />} />
-
-          <Route path="*" element={<Container />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </main>

@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const loginHandler = () => {
+    navigate("/");
+  };
   return (
     <section className="bg-primary w-screen h-screen flex flex-col justify-center items-center">
       <div className="bg-white w-[40rem] h-[40rem] rounded-lg p-20 flex flex-col  justify-center gap-8">
@@ -12,7 +17,7 @@ export default function Login() {
           <p className="w-full underline cursor-pointer">
             Olvidé mi contraseña
           </p>
-          <Button name={"Ingresar"} onclick={() => {}} />
+          <Button name={"Ingresar"} onclick={loginHandler} />
         </div>
       </div>
     </section>
