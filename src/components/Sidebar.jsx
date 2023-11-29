@@ -31,6 +31,7 @@ const SidebarItem = ({ icon, name, link }) => {
 export default function Sidebar() {
   const navigate = useNavigate();
   const signOut = () => {
+    window.localStorage.removeItem("token");
     navigate("login");
   };
   return (

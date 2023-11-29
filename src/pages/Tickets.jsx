@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
-import { TicketService } from "../services/TicketService";
 
 import socketIoClient from "socket.io-client";
+import { QueueService } from "../services/QueueService";
+import { useUserContext } from "../context/UserContext";
 
 export default function Tickets() {
   const [client, setClient] = useState(null);
-  const { nextTicket, getTickets } = TicketService();
+  const { nextTicket, getTickets } = QueueService();
   const [queue, setQueue] = useState([]);
-
   const API_URL = import.meta.env.VITE_API_URL;
-
   const next = async () => {
     const data = await nextTicket();
     setClient(data);
   };
 
-  const getAll = async () => {
-    const data = await getTickets();
+  const getAll = async (user) => {
+    console.log(user);
+    const data = await getTickets(user?.employee.procedure._id);
     setQueue(data);
   };
 
   useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
     const socket = socketIoClient(API_URL);
-    getAll();
+    getAll(user);
     socket.on("queue", (data) => {
       setQueue(data);
     });
@@ -68,7 +69,7 @@ export default function Tickets() {
               key={index}
               className="p-3  odd:bg-neutral-100 flex justify-center text-xl "
             >
-              {ticket?.id}
+              {ticket?.code}
             </span>
           ))}
         </section>
