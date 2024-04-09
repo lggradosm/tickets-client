@@ -1,38 +1,29 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, Navigate,useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Tickets from "./Tickets";
-import Dashboard from "./Dashboard";
-import Team from "./Team";
-import { useEffect } from "react";
-import { LoginService } from "../services/LoginService";
-import { UserContextProvider } from "../context/UserContext";
+
+import {  useUserContext } from "../context/UserContext";
+import { useEffect } from "react"
 export default function Home() {
-  const { verify } = LoginService();
+  const {authenticated} = useUserContext()
   const navigate = useNavigate();
-  const tokenVerified = true;
-
-  const verifyToken = () => {
-    if (tokenVerified === null) {
-      window.localStorage.removeItem("token");
-      navigate("/login");
+  const procedureId = window.localStorage.getItem("procedure")
+ 
+  useEffect(()=>{
+    if (!procedureId) {
+      // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
+      navigate("/login")
     }
-  };
+  },[])
 
-  useEffect(verifyToken, []);
-
-  if (tokenVerified)
     return (
-      <UserContextProvider>
         <section className="w-screen h-screen flex">
           <Sidebar />
           <div className="w-full h-full ">
             <Routes>
-              <Route path="/tickets" element={<Tickets />} />
-              <Route path="/personal" element={<Team />} />
-              <Route path="/*" element={<Dashboard />} />
+              <Route path="/" element={<Tickets />} />
             </Routes>
           </div>
         </section>
-      </UserContextProvider>
     );
 }

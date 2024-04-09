@@ -1,25 +1,38 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { LoginService } from "../services/LoginService";
+import ProceduresService from "../services/ProceduresService"
 const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(() =>
-    JSON.parse(sessionStorage.getItem("user"))
-  );
-  const { verify } = LoginService();
-  const sendToken = async (token) => {
-    const user = await verify(token);
-    sessionStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
-  };
+  const [procedureActive, setProcedureActive] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  
+
+  const logout = (navigate)=> {
+    window.localStorage.removeItem("procedure");
+    setProcedureActive(null);
+    setAuthenticated(false);
+    navigate("/login");
+  }
+
   useEffect(() => {
-    if (!user) {
-      const token = window.localStorage.getItem("token");
-      sendToken(token);
-    }
+    const getProcedure = async () => {
+      try {
+        const procedureId = window.localStorage.getItem("procedure");
+        if (procedureId) {
+          const data = await ProceduresService().getById(procedureId);
+          setProcedureActive(data);
+          setAuthenticated(true);
+        }
+      } catch (error) {
+        console.error("Error al obtener el procedimiento:", error);
+      }
+    };
+      getProcedure()
   }, []);
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{procedureActive,authenticated,logout}}>
       {children}
     </UserContext.Provider>
   );

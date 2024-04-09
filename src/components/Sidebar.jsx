@@ -6,6 +6,7 @@ import {
   ChevronRightIcon,
   ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/solid";
+import { useUserContext } from "../context/UserContext"
 const SidebarItem = ({ icon, name, link }) => {
   const location = useLocation().pathname;
   const Icon = icon;
@@ -30,49 +31,27 @@ const SidebarItem = ({ icon, name, link }) => {
 };
 export default function Sidebar() {
   const navigate = useNavigate();
+  const {logout} = useUserContext()
+
   const signOut = () => {
-    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("procedure");
     navigate("login");
   };
   return (
     <aside className="h-screen w-16 xl:w-80 bg-primary flex flex-col items-stretch justify-between">
       <div>
-        <section>Brand</section>
+        <section className="w-full flex items-center justify-center mt-4"><img src="/images/logo.png" /></section>
         <ul className="pt-4 flex flex-col gap-1">
-          <SidebarItem name="Inicio" icon={HomeIcon} link={"/"} />
-          <SidebarItem name="Tickets" icon={TicketIcon} link={"/tickets"} />
-          <SidebarItem
-            name="Personal"
-            icon={UserGroupIcon}
-            link={"/personal"}
-          />
+          <SidebarItem name="Tickets" icon={TicketIcon} link={"/"} />
         </ul>
       </div>
       <div className="relative group hover:bg-neutral-400/30">
-        <div className="p-2 flex text-white gap-2 cursor-pointer ">
-          <div className="rounded-full overflow-hidden w-16 ">
-            <img src="/images/patty.png" alt="" className="rounded-full" />
-          </div>
-          <div className="hidden xl:flex flex-col">
-            <p className="text-sm ">Patricia Fernanda Best Machado </p>
-            <p className="text-sm text-accent font-medium ">
-              Escrituras Públicas
-            </p>
-          </div>
-          <div className="hidden xl:flex justify-center items-center">
-            <ChevronRightIcon className="w-6" />
-          </div>
-        </div>
-        <div className="absolute hidden group-hover:flex duration-200 w-[14rem] h-full bg-[#515c6a] left-full bottom-0 ">
-          <ul className="w-full">
-            <li
+      <li
               className="p-4 cursor-pointer  w-full flex items-center justify-center h-full  text-white gap-2"
-              onClick={signOut}
+              onClick={()=>logout(navigate)}
             >
               <ArrowLeftOnRectangleIcon className="w-6" /> Cerrar Sesión
             </li>
-          </ul>
-        </div>
       </div>
     </aside>
   );
