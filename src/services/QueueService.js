@@ -18,7 +18,7 @@ export const QueueService = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({password:password}),
     };
-    const res = await fetch(`${API_URL}/queue/reset`, options);
+    const res = await fetch(`${API_URL}/reset`, options);
     const data = (await res.json()) || null;
     return data;
   }
