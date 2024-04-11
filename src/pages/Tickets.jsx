@@ -42,7 +42,9 @@ export default function Tickets() {
       joinRoom(procedureId, socket)
       socket.on("queue", (data) => {
         setQueue(data.ticket);
-        console.log(data.ticket);
+      });
+      socket.on("reset",(data) => {
+        setQueue(data.ticket);
       });
       return () => {
         socket.disconnect();
