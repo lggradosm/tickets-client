@@ -1,7 +1,9 @@
 import { useState } from "react"
 import Button from "../components/Button"
+import { QueueService } from "../services/QueueService"
 
 export default function ResetTickets (){
+  const queueService = QueueService()
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
 
@@ -12,7 +14,7 @@ export default function ResetTickets (){
 
   const onclickHandler = async () => {
     if(password !== ""){
-      const res = await resetTickets(password);
+      const res = await queueService.resetTickets(password);
       if(res === 200){
         setMessage("Los contadores fueron reiniciados")
       }else{

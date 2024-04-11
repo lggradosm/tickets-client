@@ -23,5 +23,5 @@ export const QueueService = () => {
     return data;
   }
 
-  return { getTickets, nextTicket };
+  return { getTickets, nextTicket,resetTickets };
 };
