@@ -44,7 +44,7 @@ export default function Tickets() {
         setQueue(data.ticket);
       });
       socket.on("reset",(data) => {
-        setQueue(data.ticket);
+        getAll();
       });
       return () => {
         socket.disconnect();
