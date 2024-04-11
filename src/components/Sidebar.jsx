@@ -1,10 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   TicketIcon,
-  HomeIcon,
-  UserGroupIcon,
-  ChevronRightIcon,
   ArrowLeftOnRectangleIcon,
+  TrashIcon
 } from "@heroicons/react/24/solid";
 import { useUserContext } from "../context/UserContext"
 const SidebarItem = ({ icon, name, link }) => {
@@ -43,15 +41,16 @@ export default function Sidebar() {
         <section className="w-full flex items-center justify-center mt-4"><img src="/images/logo.png" /></section>
         <ul className="pt-4 flex flex-col gap-1">
           <SidebarItem name="Tickets" icon={TicketIcon} link={"/"} />
+          <SidebarItem name="Reiniciar Tickets" icon={TrashIcon} link={"/tickets/reiniciar"} />
         </ul>
       </div>
       <div className="relative group hover:bg-neutral-400/30">
       <li
-              className="p-4 cursor-pointer  w-full flex items-center justify-center h-full  text-white gap-2"
-              onClick={()=>logout(navigate)}
-            >
-              <ArrowLeftOnRectangleIcon className="w-6" /> Cerrar Sesión
-            </li>
+        className="p-4 cursor-pointer  w-full flex items-center justify-center h-full  text-white gap-2"
+        onClick={()=>logout(navigate)}
+      >
+        <ArrowLeftOnRectangleIcon className="w-6" /> Cerrar Sesión
+      </li>
       </div>
     </aside>
   );

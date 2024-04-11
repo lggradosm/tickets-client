@@ -12,5 +12,16 @@ export const QueueService = () => {
     return data;
   };
 
+  const resetTickets = async (password) => {
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({password:password}),
+    };
+    const res = await fetch(`${API_URL}/queue/reset`, options);
+    const data = (await res.json()) || null;
+    return data;
+  }
+
   return { getTickets, nextTicket };
 };

@@ -4,6 +4,7 @@ import Tickets from "./Tickets";
 
 import {  useUserContext } from "../context/UserContext";
 import { useEffect } from "react"
+import ResetTickets from "./ResetTickets"
 export default function Home() {
   const {authenticated} = useUserContext()
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Home() {
           <div className="w-full h-full ">
             <Routes>
               <Route path="/" element={<Tickets />} />
+              <Route path="/tickets/reiniciar" element={<ResetTickets />} />
             </Routes>
           </div>
         </section>
