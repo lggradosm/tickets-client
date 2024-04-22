@@ -24,6 +24,8 @@ export default function Tickets() {
     setVisible(prev => !prev)
   }
 
+ 
+
   return(
     <section className="h-full flex flex-col select-none p-4  border-r-2  border-black/10">
       <div className="flex items-center justify-between">

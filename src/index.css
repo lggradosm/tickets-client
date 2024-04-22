@@ -14,5 +14,5 @@ input[type="number"] {
 }
 
 .page {
-  @apply p-10 min-h-screen;
+  @apply px-10 min-h-screen;
 }

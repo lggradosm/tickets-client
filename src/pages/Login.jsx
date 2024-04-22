@@ -15,11 +15,12 @@ export default function Login() {
   const {authenticated} = useUserContext()
   const [procedures,setProcedures] = useState([])
   const [selectedProcedure,setSelectedProcedure] = useState({_id:"",name:"SELECCIONA UNA OPCION"});
+  const [ventanilla, setVentanilla] = useState("")
   const dropdown = useVisibility();
+
   const {ref} = useClickOutsideToClose(dropdown.disable);
+
   const procedureId = window.localStorage.getItem("procedure");
-
-
 
   const getProcedures = async () => {
     try {
@@ -38,35 +39,53 @@ export default function Login() {
     }
   }, []);
 
-
   const loginHandler = async () => {
-    if(selectedProcedure._id !== ""){
+    if(selectedProcedure._id !== "" && ventanilla !== ""){
       window.localStorage.setItem("procedure", selectedProcedure._id);
+      window.localStorage.setItem("ventanilla", ventanilla);
       navigate("/");
     }
   };
-
 
   const selectProcedure = (procedure) =>{
     setSelectedProcedure(procedure)
     dropdown.disable()
   }
 
+  const onChangeVentanilla = (event) => {
+    const value = event.target.value;
+    setVentanilla(value)
+  }
+
+
     return (
-      <section className="bg-primary w-screen h-screen flex flex-col justify-center items-center">
-        <div className="bg-white w-[40rem]  rounded-lg p-20 flex flex-col  justify-center gap-8">
-          <h3 className="text-3xl font-bold">Inicio de sesión</h3>
-          {procedures && (
-            <div ref={ref} className={`relative bg-white border-[1px] rounded-lg ${dropdown.visibility? "overflow-visible":"overflow-hidden"}`}>
-              <div className="p-4 cursor-pointer flex justify-between" onClick={dropdown.toggle} >{selectedProcedure.name} <ChevronDownIcon className="w-4" /></div>
-              <ul className="absolute bg-white w-full border-[1px] ">
+      <section className="select-none  bg-primary w-screen h-screen flex flex-col justify-center items-center">
+        <div className="bg-white w-[40rem]  rounded-lg p-10 py-20 flex flex-col  justify-center ">
+          <h3 className="text-3xl font-bold mb-4">Inicio de sesión</h3>
+          <div className="flex gap-4 items-end">
+            <div className="flex-1 ">
+            <span htmlFor="" className="font-bold">{"Procedimientos"}</span>
+
+            {procedures && (
+            <div ref={ref} className={`h-10 mt-2   relative bg-white border-[1px] rounded-lg  ${dropdown.visibility? "overflow-visible":"overflow-hidden"}`}>
+              <div className="h-10 items-center px-4 cursor-pointer flex justify-between" onClick={dropdown.toggle} >{selectedProcedure.name} <ChevronDownIcon className="w-4" /></div>
+              <ul className="absolute bg-white  w-full border-[1px] z-20">
                 {procedures.map((procedure,index)=>(
-                  <li key={index} className="p-2 cursor-pointer hover:bg-neutral-100" onClick={()=>{selectProcedure(procedure)}}>{procedure.name}</li>
+                  <li key={index} className="h-10 cursor-pointer flex items-center px-4 hover:bg-neutral-100" onClick={()=>{selectProcedure(procedure)}}>{procedure.name}</li>
                 ))}
               </ul>
             </div>
-          ) }
-          <div className="flex justify-center items-center">
+            ) 
+          }
+            </div>
+         
+          <div className="w-1/6 ">
+            <Input name={"ventanilla"} value={ventanilla} onChange={onChangeVentanilla}   type="number" placeholder={"Número"} label={"Ventanilla"} />
+          </div>
+
+          </div>
+         
+          <div className="flex mt-6 justify-center items-center">
             <Button name={"Ingresar"} onclick={loginHandler} />
           </div>
         </div>

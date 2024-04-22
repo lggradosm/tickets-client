@@ -6,7 +6,7 @@ export default function Button({ name, onclick, size = "md" }) {
   };
   return (
     <button
-      className={`bg-primary text-white p-3  w-full  rounded-lg  ${sizes[size]} hover:scale-105 duration-200`}
+      className={`bg-primary h-10 flex items-center justify-center text-white text-sm  w-full  rounded-lg  ${sizes[size]} hover:scale-105 duration-200`}
       onClick={onclick}
     >
       {name}

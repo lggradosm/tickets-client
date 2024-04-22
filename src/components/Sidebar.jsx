@@ -2,9 +2,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   TicketIcon,
   ArrowLeftOnRectangleIcon,
-  TrashIcon
+  TrashIcon,
 } from "@heroicons/react/24/solid";
-import { useUserContext } from "../context/UserContext"
+import { useUserContext } from "../context/UserContext";
 const SidebarItem = ({ icon, name, link }) => {
   const location = useLocation().pathname;
   const Icon = icon;
@@ -18,18 +18,15 @@ const SidebarItem = ({ icon, name, link }) => {
             : "hover:text-white hover:bg-neutral-400/30 text-neutral-400 "
         }`}
       >
-        <Icon className="w-6" />
+        <Icon className="w-4" />
         <span className="hidden xl:inline-block"> {name}</span>
-        <span className="hidden absolute left-full top-0 select-none bg-neutral-900 text-white h-full group-hover:flex items-center rounded-r-lg ´">
-          <span className="p-4">{name}</span>
-        </span>
       </Link>
     </li>
   );
 };
 export default function Sidebar() {
   const navigate = useNavigate();
-  const {logout} = useUserContext()
+  const { logout } = useUserContext();
 
   const signOut = () => {
     window.localStorage.removeItem("procedure");
@@ -38,19 +35,26 @@ export default function Sidebar() {
   return (
     <aside className="h-screen w-16 xl:w-80 bg-primary flex flex-col items-stretch justify-between">
       <div>
-        <section className="w-full flex items-center justify-center mt-4"><img src="/images/logo.png" /></section>
-        <ul className="pt-4 flex flex-col gap-1">
+        <section className="hidden lg:flex w-full   items-center justify-center mt-0 lg:mt-4">
+          <img src="/images/logo.png" />
+        </section>
+        <ul className="pt-0 lg:pt-4 flex flex-col gap-1">
           <SidebarItem name="Tickets" icon={TicketIcon} link={"/"} />
-          <SidebarItem name="Reiniciar Tickets" icon={TrashIcon} link={"/tickets/reiniciar"} />
+          <SidebarItem
+            name="Reiniciar Tickets"
+            icon={TrashIcon}
+            link={"/tickets/reiniciar"}
+          />
         </ul>
       </div>
       <div className="relative group hover:bg-neutral-400/30">
-      <li
-        className="p-4 cursor-pointer  w-full flex items-center justify-center h-full  text-white gap-2"
-        onClick={()=>logout(navigate)}
-      >
-        <ArrowLeftOnRectangleIcon className="w-6" /> Cerrar Sesión
-      </li>
+        <li
+          className="p-4 cursor-pointer  w-full flex items-center justify-center h-full  text-white gap-2"
+          onClick={() => logout(navigate)}
+        >
+          <ArrowLeftOnRectangleIcon className="w-6" />{" "}
+          <span className="hidden xl:inline-block">Cerrar Sesión</span>
+        </li>
       </div>
     </aside>
   );

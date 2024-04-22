@@ -9,9 +9,10 @@ export default function Home() {
   const {authenticated} = useUserContext()
   const navigate = useNavigate();
   const procedureId = window.localStorage.getItem("procedure")
- 
+  const ventanilla = window.localStorage.getItem("ventanilla")
+
   useEffect(()=>{
-    if (!procedureId) {
+    if (!procedureId || !ventanilla) {
       // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
       navigate("/login")
     }

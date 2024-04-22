@@ -6,8 +6,13 @@ export const QueueService = () => {
     return data?.ticket;
   };
 
-  const nextTicket = async (procedureId) => {
-    const res = await fetch(`${API_URL}/next/${procedureId}`);
+  const nextTicket = async (procedureId,ventanilla) => {
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({procedureId, ventanilla}),
+    };     
+    const res = await fetch(`${API_URL}/next`,options);
     const data = (await res.json()) || null;
     return data;
   };
